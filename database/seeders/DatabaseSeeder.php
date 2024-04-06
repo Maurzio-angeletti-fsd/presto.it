@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'A-team',
             'email' => 'ateam@example.it',
             'password' => 'ateam123',
+            'is_revisor'=> true
+
         ]);
 
         User::factory()->create([
