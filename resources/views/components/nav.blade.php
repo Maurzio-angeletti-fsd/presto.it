@@ -15,6 +15,13 @@
           <a class="nav-link active navAnimation linkNav" aria-current="page" href="{{route('home')}}">Home</a>
         </li>
 
+        
+
+        <li class="nav-item border-bottom noBorderBot">
+          <a class="nav-link active navAnimation linkNav" aria-current="page" href="{{route('plan.show')}}">subscribe</a>
+        </li>
+
+        
         <li class="nav-item border-bottom noBorderBot">
           <a class="nav-link active navAnimation linkNav" aria-current="page" href="{{route('show_announcements')}}">{{__('ui.Announce')}}</a>
         </li>

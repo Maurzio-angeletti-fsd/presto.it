@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\Announcement;
+use App\Models\Plan;
 use App\Models\User;
+use App\Models\Announcement;
+use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -78,6 +80,49 @@ class DatabaseSeeder extends Seeder
             'email' => 'carroll@example.net',
             'password' => 'carroll123',
         ]);
+
+        Plan::create([
+
+            'slug' => 'premium mensile',
+            'price' => '1200',
+            'duration_in_days' => 30,
+            'stripe_id' => 'prod_PuTL6mYdZA6RgC',
+            'stripe_price' => 'price_1P6HakGSRy6U28xgXY0IyTiD'
+
+        ]);
+
+        Plan::factory()->create([
+
+            'slug' => 'premium  annuale',
+            'price' => '9999',
+            'duration_in_days' => 365,
+            'stripe_id' => 'prod_PuTL6mYdZA6RgC',
+            'stripe_price' => 'price_1P6HbqGSRy6U28xgJL6T9L2u'
+
+        ]);
+
+        Plan::factory()->create([
+
+            'slug' => 'base mensile',
+            'price' => '500',
+            'duration_in_days' => 30,
+            'stripe_id' => 'prod_Pw9x74mKW0TtwM',
+            'stripe_price' => 'price_1P6HdEGSRy6U28xglots09Ix'
+
+        ]);
+
+        Plan::factory()->create([
+
+            'slug' => 'base annuale',
+            'price' => '4500',
+            'duration_in_days' => 365,
+            'stripe_id' => 'prod_Pw9x74mKW0TtwM',
+            'stripe_price' => 'price_1P6HesGSRy6U28xgQLevA77T',
+            
+
+        ]);
+
+        
 
 
         // User::factory(25)->create();

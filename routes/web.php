@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\AnnouncementController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\RevisorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\RevisorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\Gateways\StripeController;
 
 
 /*
@@ -33,3 +34,13 @@ Route::get('/rendi/revisore/{user}', [RevisorController::class, 'makeRevisor'])-
 Route::get('/ricerca/annuncio', [PageController::class, 'searchAnnouncements'])->name('announcements.search');
 
 Route::post('/lingua/{lang}', [PageController::class, 'setLanguage'])->name('setLocale');
+
+
+//stripe
+Route::post('stripe/payment', [StripeController::class, 'payment'])->name('stripe.payment');
+Route::get('stripe/success', [StripeController::class, 'success'])->name('stripe.success');
+Route::get('stripe/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel');
+
+
+//
+Route::view('pricing', 'pricing')->name('subscription.pricing');

@@ -3,14 +3,19 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\EmailSents;
+use App\Models\Announcement;
+use Laravel\Cashier\Billable;
+use Laravel\Cashier\Subscription;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use function Illuminate\Events\queueable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +55,40 @@ class User extends Authenticatable
     public function emailsSents()
     {
         return $this->hasMany(EmailSents::class);
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function planSubscriptions()
+    {
+        return $this->hasMany(planSubscription::class);
+    }
+
+    public function hasActiveSubscription()
+    {
+        return optional($this->subscription)->isActive() ?? false;
+    }
+
+    public function setSubsrcibed($value)
+    {
+
+        $this->is_subscribed = $value;
+        $this->save();
+        return;
+    }
+
+        /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::updated(queueable(function (User $customer) {
+            if ($customer->hasStripeId()) {
+                $customer->syncStripeCustomerDetails();
+            }
+        }));
     }
 }

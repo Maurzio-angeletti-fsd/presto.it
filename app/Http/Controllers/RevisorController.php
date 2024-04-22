@@ -45,7 +45,6 @@ class RevisorController extends Controller
     }
 
     public function acceptAnnouncement(Announcement $announcement)
-
     {
         $announcement->setAccepted(true);
         Notification::create(
